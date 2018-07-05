@@ -46,10 +46,16 @@ Nella nostra implementazione il CSP è così definito:
 	\item \textbf{domini}: l'insieme di valori validi per ogni variabile, dove un valore è una tupla di coordinate che identifica un possibile posizionamento di una forma nella griglia;
 	\item \textbf{vincoli}: 
 		\begin{itemize}
-			\item nessuna variabile $X\textbf{i}$ deve sovrapporsi all'interno della griglia, anche solo parzialmente, con un'altra variabile $X\textbf{j}$;
-			\item il posizionamento di una variabile nella griglia non deve creare una componente connessa con un numero di celle inferiore alla dimensione della forma più piccola, 3 nel nostro caso (vedi Figura \ref{fig:0}).
+			\item nessuna variabile $X\textsubscript{i}$ deve sovrapporsi all'interno della griglia, anche solo parzialmente, con un'altra variabile $X\textsubscript{j}$;
+			\item il posizionamento di una variabile nella griglia non deve creare una componente connessa con un numero di celle inferiore alla dimensione della forma più piccola, 3 nel nostro caso (vedi Figura \ref{fig:badCC}).
 		\end{itemize}
 \end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{immagini/badCC}
+	\caption{Il quadrato in alto a sinistra forma una componente connessa di una sola cella, che è un numero inferiore alla dimensione della forma più piccola.}
+	\label{fig:badCC}
+\end{figure}
 
 \subsubsection{Backtracking}
 \subsubsection{Backtracking ricorsivo}
