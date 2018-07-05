@@ -12,13 +12,21 @@ Lo scopo di IQ Puzzler è quello di riempire la griglia di gioco con tutte le va
 Il gioco comprende anche 100 configurazioni iniziali, dove alcune forme sono già posizionate all'interno della griglia e solo le rimanenti devono essere piazzate. All'aumentare delle forme rimanenti, aumenta notevolmete la complessità del gioco.\\ 
 \subsection{Griglia di gioco}
 La griglia è formata da 11 righe con 4 o 5 celle, dove ogni cella è collegata solo con quelle nelle sue 2 diagonali. In totale la griglia è formata da 50 celle.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{immagini/griglia}
+	\caption{La griglia di gioco di IQ Puzzler. Le forme possono essere piazzate utilizzando solo le celle bianche.}
+	\label{fig:griglia}
+\end{figure}
+
 \subsection{Forme di gioco}
 Le forme totali sono 11, ognuna con una propria struttura diversa dalle altre, e sono formate da dei pallini collegati in modo da essere inseriti nelle celle della griglia.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{immagini/iqpuzzler}
-	\caption{IQ Puzzler}
+	\caption{Le forme di gioco di IQ Puzzler.}
 	\label{fig:iqpuzzler}
 \end{figure}
 
@@ -56,7 +64,7 @@ Ad ogni passo di computazione l'input della funzione agente è rappresentato dal
 
 \section{Strumenti utilizzati}
 Il programma è stato completamente sviluppato in Python 3.6 con l'utilizzo della libreria \textit{pygame} per quanto rigurda la parte grafica, e la libreria \textit{python-constraint} per la risoluzione del problema formulato come CSP. \\
-La libreria \textit{python-constraint} è stata inoltre modificata e inclusa nella cartella \textit{pythonConstraint} per due motivi:
+La libreria \textit{python-constraint} è stata inoltre modificata e inclusa nella cartella \texttt{pythonConstraint/} per due motivi:
 \begin{itemize}
 	\item apportare delle migliorie agli algoritmi presenti, che verranno esposte successivamente nel documento;
 	\item permettere di visualizzare ogni assegnamento parziale durante l'esecuzione dell'algoritmo.
@@ -66,15 +74,15 @@ La libreria \textit{python-constraint} è stata inoltre modificata e inclusa nel
 Per poter utilizzare il programma è necessario:
 \begin{itemize}
 	\item aver installato nel computer Python 3;
-	\item spostarsi con il terminale alla cartella radice (IQPuzzlerSoler) contenente il programma;
+	\item spostarsi con il terminale alla cartella radice (\texttt{IQPuzzlerSoler/}) contenente il programma;
 	\item eseguire uno di questi due comandi:
 	\begin{itemize}
 		\item \begin{verbatim}
 		python main.py
-		\end{verbatim}inizia l'esecuzione del programma, dando all'utente la possibilità, attraverso degli input numerici, di selezionare il problema e con quale metodo risolverlo;
+		\end{verbatim}inizia l'esecuzione del programma, guidando l'utente nella scelta della difficoltà del problema e in che modo risolverlo. Le possibili difficoltà sono 5 (da 0 a 4) e di complessità crescente. I metodi di risoluzione sono quattro, tre dei quali con una variante ...
 		\item \begin{verbatim}
 		sh Test/scriptTest.sh
-		\end{verbatim}esegue automaticamente una serie di esempi di problemi con vari metodi di risoluzione, tracciando i risultati ottenuti nel file \textit{Test/testResult.txt}. 
+		\end{verbatim}esegue automaticamente una serie di esempi di problemi con vari metodi di risoluzione, tracciando i risultati ottenuti nel file \texttt{Test/testResult.txt}. 
 	\end{itemize}
 \end{itemize}
 \begin{figure}[h]
