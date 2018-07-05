@@ -50,16 +50,60 @@ Nella nostra implementazione il CSP è così definito:
 			\item il posizionamento di una variabile nella griglia non deve creare una componente connessa con un numero di celle inferiore alla dimensione della forma più piccola, 3 nel nostro caso (vedi Figura \ref{fig:badCC}).
 		\end{itemize}
 \end{itemize}
+
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{immagini/badCC}
-	\caption{Il quadrato in alto a sinistra forma una componente connessa di una sola cella, che è un numero inferiore alla dimensione della forma più piccola.}
+	{\includegraphics[scale=0.35]{immagini/goodCC}}
+	\hspace{5mm}
+	{\includegraphics[scale=0.35]{immagini/badCC}}
+	\caption{La figura a sinistra rappresente un valore consistente per la forma a "V", mentre la figura a destra uno non valido per la figura a "T" in quanto si crea una componente connessa di una sola cella}
 	\label{fig:badCC}
 \end{figure}
 
+\subsection{Tipi di solver}
+La libreria \textit{python-constraint} che abbiamo utilizzato per risolvere il problema sotto forma di CSP, mette a disposizione tre diversi solver, che utilizzano algoritmi ed euristiche differenti per ottenere una soluzione. \\
+Inoltre abbiamo incluso e modificato il codice della libreria all'interno del nostro progetto per poter visualizzare nella griglia grafica ogni passo di computazione dei vari solver e aggiungere alcune migliorie esposte in \ref{migliorie}.
 \subsubsection{Backtracking}
+Questo solver ad ogni passo di computazione seleziona la prossima variabile a cui assegnare un valore attraverso l'euristica di grado, cioè per ogni variabile conta il numero di vincoli in cui è coinvolta, selezionando quella più vincolata. Qualora questa euristica evidenzi più di una variabile, a queste viene applicata l'euristica Minimum Remaining Values (MRV), che seleziona la variabile con il minor numero di valori nel dominio.\\
+Una volta scelta la variabile le viene assegnato un valore consistente con l'assegnamento parziale, se esiste, eliminando dai domini delle altre variabili, attraverso un \textit{forward checking}, i valori non più consistenti con il nuovo assegnamento. Se non esiste un valore consistente nel dominio della variabile, si ritorna all'ultima variabile assegnata, cambiandone il valore. \\
+Quando tutte le variabili hanno un valore nell'assegnamento, esso viene ritornato come soluzione del problema.
 \subsubsection{Backtracking ricorsivo}
+Utilizza lo stesso algoritmo esposto nel paragrafo precedente, solamente che viene implementato in modo ricorsivo.
 \subsubsection{MinConflict}
+Questo solver utilizza un algoritmo di ricera locale cioè, partendo da un assegnamento completo delle varibili, cerca di ottenere una soluzione al problema modificando ad ogni passo il valore di una variabile, facendo in modo che violi il minor numero di vincoli del problema. \\
+Questi tipi di algoritmi non considerano il percorso per raggiungere una soluzione, ma danno importanza solamente alla configurazione finale. Inoltre utilizzando un unico stato corrente, possono portare alla soluzione utilizzando poca memoria, e spesso si rivelano più efficienti nel caso di un grande spazio degli stati, rispetto ad altri algoritmi.\\
 
-\subsection{Utilizzo}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.75]{immagini/mc}
+	\caption{Funzionamento del solver MinConflict (da notare che alcune forme sono sovrapposte e quindi non del tutto visibili)}
+	\label{fig:mc}
+\end{figure}
+
+
+\newpage
 \section{Nostri miglioramenti}
+\label{migliorie}
+Una volta implementati gli algoritmi appena visti, abbiamo pensato a dei modi per poter miglorare la loro efficienza rispetto al nostro gioco. \\
+Per quanto rigurda DFS, Backtracking e Backtracking ricorsivo abbiamo aggiunto un particolare controllo, se voluto dall'utente attraverso uno specifico input, chiamato \textbf{Connected Component Check}.
+\subsection{Connected Component Check}
+Durante l'esecuzione dei vari algoritmi, nel momento in cui viene deciso un valore per la prossima variabile da assegnare, insieme all'assegnamento parziale ottenuto fino a quel momento, viene fatto un controllo sulla dimensione della minima componente connessa rimanente nella griglia. \\
+Se essa ha una dimensione minore della più piccola forma ancora da inserire, viene scartato il nuovo valore che si stava assegnando alla variabile e ne viene analizzato un altro. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{immagini/goodCC}
+	\caption{Assegnamento consistente per la variabile "V"}
+	\label{fig:CCC}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	{\includegraphics[scale=0.35]{immagini/esCC}}
+	\hspace{5mm}
+	{\includegraphics[scale=0.35]{immagini/esCC_no}}
+	\caption{La stessa posizione della figura \ref{fig:CCC} per la variabile "V" non è consistente con l'assegnamento parziale, e l'algoritmo che fa uso di Connected Component Check è in grado di rilevarlo}
+	\label{fig:badCCC}
+\end{figure}
+ 
