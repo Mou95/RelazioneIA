@@ -86,8 +86,9 @@ Questi tipi di algoritmi non considerano il percorso per raggiungere una soluzio
 \section{Nostri miglioramenti}
 \label{migliorie}
 Una volta implementati gli algoritmi appena visti, abbiamo pensato a dei modi per poter miglorare la loro efficienza rispetto al nostro gioco. \\
-Per quanto rigurda DFS, Backtracking e Backtracking ricorsivo abbiamo aggiunto un particolare controllo, se voluto dall'utente attraverso uno specifico input, chiamato \textbf{Connected Component Check}.
+
 \subsection{Connected Component Check}
+Per quanto rigurda DFS, Backtracking e Backtracking ricorsivo abbiamo aggiunto un particolare controllo, se voluto dall'utente attraverso uno specifico input, chiamato \textbf{Connected Component Check}.
 Durante l'esecuzione dei vari algoritmi, nel momento in cui viene deciso un valore per la prossima variabile da assegnare, insieme all'assegnamento parziale ottenuto fino a quel momento, viene fatto un controllo sulla dimensione della minima componente connessa rimanente nella griglia. \\
 Se essa ha una dimensione minore della più piccola forma ancora da inserire, viene scartato il nuovo valore che si stava assegnando alla variabile e ne viene analizzato un altro. 
 
@@ -106,4 +107,11 @@ Se essa ha una dimensione minore della più piccola forma ancora da inserire, vi
 	\caption{La stessa posizione della figura \ref{fig:CCC} per la variabile "V" non è consistente con l'assegnamento parziale, e l'algoritmo che fa uso di Connected Component Check è in grado di rilevarlo}
 	\label{fig:badCCC}
 \end{figure}
+
+\subsection{Random Restart}
+Abbiamo notato come il solver MinConflict nelle istanze complesse del problema non raggiunga un assegnamento completo e consistente, ossia una soluzione. Questo è dovuto dal fatto che può capitare di raggiungere stati dove ogni possibile successiva azione non diminuisce il numero di vincoli violati. Nel caso in cui l'algoritmo arrivi in uno di questi stati, chiamati minimi locali, non è più in grado di raggiungere una soluzione del problema, in quanto inizia una serie di assegnamenti ciclici che lo porteranno sempre allo stesso minimo locale, terminando dopo un numero fissato di iterazioni in un assegnamento non consistente.\\
+Per ovviare a questo problema l'utente ha la possibilità, tramite uno specifico input nella definizione del problema, di utilizzare la tecnica chiamata Random Restart. Essa consiste nel riavviare l'algoritmo qualora termini con un assegnamento non consistente, finchè non ritorna una soluzione valida per il problema. Questa tecnica rende MinConflict completo, in quanto ci assicura di ottenere sempre un assegnamento completo e consistente, dopo un certo numero di riavvii.\\
+
+
+
  
