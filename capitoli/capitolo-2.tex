@@ -12,7 +12,7 @@
 Il primo algoritmo utilizzato per risolvere il nostro problema è stato il Depth First Search. È una strategia di ricerca non informata in quanto non si utilizzano informazioni aggiuntive sugli stati oltre alla definizione iniziale del problema.
 Quindi l'algoritmo è solamente in grado di generare successori e distinguere se sono uno stato obiettivo o meno. \\
 Questa strategia esplora tutti gli stati dell'albero di ricerca in profondità, cioè espande prima lo stato più profondo non ancora esplorato, ritornando indietro nel caso il cammino non porti a nessuno stato obiettivo in un numero finito di azioni. \\
-Questo tipo di ricerca termina non appena trova il primo stato obiettivo, generando però, nel caso pessimo, una complessità temporale (numero di stati generati) di $\mathcal{O}(b^m)$ dove m è la massima lunghezza di un percorso e b il massimo numero di successori di uno stato, rendendo questo algoritmo poco efficiente.
+Questo tipo di ricerca termina non appena trova il primo stato obiettivo, generando però, nel caso pessimo, una complessità temporale (numero di stati generati) di $\mathcal{O}(b^m)$ dove $m$ è la massima lunghezza di un percorso e $b$ il massimo numero di successori di uno stato, rendendo questo algoritmo poco efficiente.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.25]{immagini/dfs}
@@ -109,6 +109,7 @@ Se essa ha una dimensione minore della più piccola forma ancora da inserire, vi
 \end{figure}
 
 \subsection{Random Restart}
+\label{RR}
 Abbiamo notato come il solver MinConflict nelle istanze complesse del problema non raggiunga un assegnamento completo e consistente, ossia una soluzione. Questo è dovuto dal fatto che può capitare di raggiungere stati dove ogni possibile successiva azione non diminuisce il numero di vincoli violati. Nel caso in cui l'algoritmo arrivi in uno di questi stati, chiamati minimi locali, non è più in grado di raggiungere una soluzione del problema, in quanto inizia una serie di assegnamenti ciclici che lo porteranno sempre allo stesso minimo locale, terminando dopo un numero fissato di iterazioni in un assegnamento non consistente.\\
 Per ovviare a questo problema l'utente ha la possibilità, tramite uno specifico input nella definizione del problema, di utilizzare la tecnica chiamata Random Restart. Essa consiste nel riavviare l'algoritmo qualora termini con un assegnamento non consistente, finchè non ritorna una soluzione valida per il problema. Questa tecnica rende MinConflict completo, in quanto ci assicura di ottenere sempre un assegnamento completo e consistente, dopo un certo numero di riavvii.\\
 
