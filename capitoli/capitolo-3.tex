@@ -8,9 +8,14 @@
 %**************************************************************
 \section{Confronto dei vari metodi}
 In questa sezione confronteremo il tempo di esecuzione dei vari metodi risolutivi per 5 configurazioni iniziali del problema, di difficoltà crescente dal livello 0 al livello 4.\\
-Per i primi 4 problemi abbiamo anche un dato del tempo impiegato da una persona nel risolvere il problema. Abbiamo infatti sottoposto i vari livelli a 8 persone diverse, di età compresa tra 16 e 55 anni, cronometrandoli durante lo svolgimento del gioco.\\
+Per i primi 4 problemi abbiamo anche un dato del tempo impiegato da una persona nel risolvere il problema (sezione \ref{human}). Abbiamo infatti sottoposto i vari livelli a 8 persone diverse, di età compresa tra 16 e 55 anni, cronometrandoli durante lo svolgimento del gioco.\\
 Per ogni livello è presente una tabella che contiene le misure di performance, in termini di tempo medio di esecuzione, rilevate per ogni tipo di solver; inoltre tra parentesi è presente il numero medio di stati attraversati da ogni solver per arrivare allo stato obiettivo. \\
 Per ogni tabella, si paragonano tra loro i risultati ottenuti da ogni solver con o senza le migliorie specificate in \ref{migliorie}
+
+\section{Procedura di testing}
+Per ogni livello di difficoltà e per ogni possibie algoritmo, con e senza le rispettive migliorie, sono state fatte 40 esecuzioni. Per ogni esecuzione sono stati tracciati il tempo e il numero di stati attraversati, per poi calcolare le medie da inserire nelle varie tabelle.\\
+
+Nel caso del solver $MinConflict$ senza \textit{Random Restart}, i dati sono relativi alle sole esecuzioni che hanno portato ad una soluzione valida (le percentuali di fallimento/successo vengono riportate tra le osservazioni per ogni livello).
 
 \subsection{Livello 0}
 La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{c}, \ref{y}.
@@ -27,22 +32,26 @@ La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le fo
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflicts}\\ \hline 
-		Sì&\textcolor{ForestGreen}{0.0107 (4.175)}&\textcolor{red}{0.0519 (11.0)}&0.0495 (11.0)&0.0129 (3.4) \\ \hline 
-		No&0.0319 (24.825)&0.0178 (11.0)&0.0175 (11.0)&0.0142 (4.325)  \\ \hline 
+		Sì&\textcolor{ForestGreen}{0,0107 (4,175)}&\textcolor{red}{0,0519 (11)}&0,0495 (11)&0,0184 (2,275) \\ \hline 
+		No&0,0319 (24,825)&0,0178 (11)&0,0175 (11)&0,0223 (2,525)  \\ \hline 
 	\end{tabular} 
+	\caption{Tempi livello 0}
 \end{table}
 
 \subsubsection{Osservazioni}
+
+\textit{Numero di soluzioni}: 2\\
+
 In questo livello, le forme mancanti sono solamente tre, producendo così uno spazio di ricerca molto limitato. Secondo i test effettutati e sulla base delle misure di perfomance adottate e esposte in \ref{performance}, l'algoritmo migliore risulta essere $DFS$ con la miglioria \textit{Connected Component Check} (d'ora in avanti $CCC$), mentre il peggiore risulta essere quello di $Backtracking$ con la stessa miglioria.\\
 
-La miglioria $CCC$ permette a $DFS$ di ignorare una considerevole porzione dello spazio di ricerca. Ipotizziamo di volere inserire la prima delle tre forme mancanti. Senza la miglioria, l'inserimento di tale forma potrebbe produrre un assegnamento parziale dal quale non è possibile produrre una configurazione finale che corrisponda ad un assegnamento totale e consistente, portando quindi $DFS$ ad esplorare totalmente un cammino che è destinato a non portare ad uno stato obiettivo.\\
-La miglioria, invece, si accorgerebbe subito di questo problema, potando il conseguente sotto albero di ricerca; infatti $DFS$ con miglioria attraversa in media 4.175 stati, mentre senza di essa ne attraversa in media 24.825, oscillando tra un minimo di 10 e un massimo di 30 stati.\\
+La miglioria $CCC$ permette a $DFS$ di ignorare una considerevole porzione dello spazio di ricerca. Ipotizziamo di volere inserire la prima delle tre forme mancanti, creando una componente connessa di grandezza minore della più piccola forma ancora da inserire. Senza la miglioria, l'inserimento di tale forma produrrà un assegnamento parziale dal quale non è possibile raggiungere una configurazione finale che corrisponda ad un assegnamento totale e consistente, portando quindi $DFS$ ad esplorare totalmente un cammino che è destinato a non portare ad uno stato obiettivo.\\
+La miglioria, invece, si accorgerebbe subito di questo problema, potando il conseguente sottoalbero degli stati; infatti $DFS$ con miglioria attraversa in media 4,175 stati, mentre senza di essa ne attraversa in media 24,825, oscillando tra un minimo di 10 e un massimo di 30 stati.\\
 Notiamo tuttavia che il tempo per arrivare alla soluzione da parte dei due tipi di $DFS$ non è proporzionale rispetto al numero degli stati attraversati (il primo numero di stati è $1/6$ dell'altro, mentre il primo tempo d'esecuzione è $1/3$ dell'altro). Questo è dovuto al fatto che il $CCC$ richiede ovviamente anch'esso un certo tempo di esecuzione, che però risulta vantaggioso ai fini dell'esplorazione dello spazio degli stati e della soluzione.\\
 
-Per quanto riguarda il $Backtracking$ con la stessa miglioria, esso risulta essere il peggiore per il seguente motivo: notiamo come il $Backtracking$ semplice impieghi poco più del $DFS$ con miglioria, facendo quindi pensare che anch'esso sia un buon solver per questo livello di difficoltà. Tuttavia, dalla tabella si vede come il solver $Backtracking$ semplice e quello con miglioria attraversino lo stesso umero di stati, con la differenza che nel secondo viene eseguito il $CCC$, aumentandone quindi il tempo d'esecuzione.\\
+Per quanto riguarda il $Backtracking$ con la stessa miglioria, esso risulta essere il peggiore per il seguente motivo: notiamo come il $Backtracking$ semplice impieghi poco più del $DFS$ con miglioria, facendo quindi pensare che anch'esso sia un buon solver per questo livello di difficoltà. Tuttavia, dalla tabella si vede come il solver $Backtracking$ semplice e quello con miglioria attraversino lo stesso numero di stati, con la differenza che nel secondo viene eseguito il $CCC$, aumentandone quindi il tempo d'esecuzione.\\
 Possiamo quindi affermare che a parità di stati, o se la loro differenza è poco rilevante, il solver che utilizza il $CCC$ impiegherà più tempo rispetto al suo corrispondente solver senza il $CCC$.\\
 
-Infine, osserviamo che la miglioria \textit{Random Restart} per il solver $MinConflicts$ risulta poco utile, in quanto per la semplicità di questo livello è molto difficile che il solver si "incastri" in qualche minimo locale: nessuno dei test eseguiti per questo solver, con e senza questa miglioria, ha mai portato ad uno stallo in un minimo locale.
+Infine, osserviamo che la miglioria \textit{Random Restart} per il solver $MinConflicts$ risulta poco utile, in quanto per la semplicità di questo livello è molto difficile che il solver si "incastri" in qualche minimo locale: nessuno dei test eseguiti per questo solver, con e senza miglioria, ha mai portato ad uno stallo in un minimo locale e quindi i due solver, con e senza miglioria, operano allo stesso modo (non ci sono riavvii).
 \subsection{Livello 1}
 La configurazione iniziale del livello 1 è mostrata in figura \ref{lev1}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{c}, \ref{y}, \ref{w}.
 \begin{figure}[h]
@@ -53,24 +62,27 @@ La configurazione iniziale del livello 1 è mostrata in figura \ref{lev1}. Le fo
 \end{figure}
 \\
 \noindent
-\begin{table} 
+\begin{table} [h]
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflicts}\\ \hline 
-		Sì&\textcolor{ForestGreen}{0.0271 (9.75)}&0.0666 (12.0)&0.0704 (12.0)&\textcolor{red}{0.5013 (1975.264)} \\ \hline 
-		No&0.1081 (94.675)&0.0257 (12.0)&0.0270 (13.0)&0.0377 (20.82142)  \\ \hline 
+		Sì&\textcolor{ForestGreen}{0,0271 (9,75)}&0,0666 (12)&0,0704 (12)&\textcolor{red}{0,7078 (409,92)} \\ \hline 
+		No&0,1081 (94,675)&0,0257 (12)&0,0270 (13)&0,0539 (10,518)  \\ \hline 
 	\end{tabular} 
+	\caption{Tempi livello 1}
 \end{table}
 
 \subsubsection{Osservazioni}
+
+\textit{Numero di soluzioni}: 1\\
 
 Per questo livello di difficoltà, i risultati ottenuti con i solver $DFS$, $Backtracking$ e \textit{Recursive Backtracking} rispecchiano quelli ottenuti nel livello 0. Non verrano quindi esposte altre osservazioni su questi solver, in quanto identiche a quelle del livello in oggetto.\\
 
 
 Risulta invece necessario approfondire il significato dei valori riguardanti il solver $MinConflicts$ (rimandiamo a \ref{RR} per il significato di miglioria in questo contesto).\\
-Nonostante questo livello di difficoltà possa sembrare ancora semplice, il solver \textit{MinConflicts} senza la miglioria \textit{Random Restart} (d'ora in avanti $RR$) non ha portato ad una soluzione nel $30\%$ dei test, risultando quindi di utilizzo scarsamente conveniente. \\
-Con la miglioria $RR$, invece, vediamo come il rempo di esecuzione (e il numero di stati attraversati) sia nettamente più alto rispetto a qualsiasi altro solver, ma questo è un valore medio con una varianza troppo elevata per essere interpretato singolarmente. \\Risulta infatti che il numero di stati attraversati oscilli tra un minimo di 3 ad un massimo di 40376 (che corrispondono a 40 riavvii), con una maggior concentrazione intorno ai 50 stati. Quest'ultimo dato ci porta quindi a dedurre che è più probabile che il numero di stati attraversati sia qualche decina, e non diverse (decine di) migliaia.\\
-Comunque sia, il solver $MinConflicts$ non è il migliore tra essi.
+Nonostante questo livello di difficoltà possa sembrare ancora semplice, il solver \textit{MinConflicts} senza la miglioria \textit{Random Restart} (d'ora in avanti $RR$) non ha portato ad una soluzione nel $32,5\%$ dei test, risultando quindi di utilizzo scarsamente conveniente. \\
+Con la miglioria $RR$, invece, vediamo come il tempo di esecuzione (e il numero di stati attraversati) sia nettamente più alto rispetto a qualsiasi altro solver, in quanto l'alto tasso di fallimento comporta spesso un numero elevato di riavvii dell'algoritmo, ma questo è un valore medio con una varianza troppo elevata per essere interpretato singolarmente. Risulta infatti che il numero di stati attraversati oscilli tra un minimo di 2 e un massimo di 5.006 (che corrispondono a 5 riavvii), con una maggior concentrazione intorno ai 20 stati. Quest'ultimo dato ci porta quindi a dedurre che è più probabile che il numero di stati attraversati sia circa 20, e non diverse migliaia.\\
+Comunque sia, il solver $MinConflicts$ resta il peggiore per questo livello.
 
 
 \subsection{Livello 2}
@@ -83,25 +95,29 @@ La configurazione iniziale del livello 2 è mostrata in figura \ref{lev2}. Le fo
 \end{figure}
 \\
 \noindent
-\begin{table} 
+\begin{table}[h]
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflicts}\\ \hline 
-		Sì&0.1429 (57.75)&0.1405 (22.0)&0.1227 (17.0)&\textcolor{red}{0.6263 (1414.7)} \\ \hline 
-		No&1.9350 (1901.25)&0.0695 (32.0)&\textcolor{ForestGreen}{0.0579 (19.0)}&0.2054 (145.9444)  \\ \hline 
+		Sì&0,1429 (57,75)&0,1405 (22)&0,1227 (17)&0,4244 (180,47) \\ \hline 
+		No&\textcolor{red}{1,9350 (1901,25)}&0,0695 (32)&\textcolor{ForestGreen}{0,0579 (19)}&0,1850 (52,894)  \\ \hline 
 	\end{tabular} 
+	\caption{Tempi livello 2}
 \end{table}
 
 \subsubsection{Osservazioni}
+
+\textit{Numero di soluzioni}: 8\\
+
 In questo livello di difficoltà, il numero di forme da inserire è 6, generando così uno spazio degli stati notevolmente maggiore dei livelli precedentemente affrontati, con conseguenti osservazioni differenti.
-Il solver migliore risulta infatti essere il \textit{Recursive Backtracking} senza il $CCC$, mentre il peggiore è (di nuovo) il $MinConflicts$ con il $RR$.\\
+Il solver migliore risulta infatti essere il \textit{Recursive Backtracking} senza il $CCC$, mentre il peggiore è il $DFS$ senza $CCC$, come ci si attendeva.\\
 
-Osserviamo che $DFS$ senza $CCC$ risulta essere molto peggio del suo corrispettivo con $CCC$: il tempo di esecuzione è infatti quasi 14 volte maggiore, mentre il numero di stati attraversati è circa 33 volte maggiore.\\
+Osserviamo che $DFS$ senza $CCC$ risulta essere nettamente peggiore del suo corrispettivo con $CCC$: il tempo di esecuzione è infatti quasi 14 volte maggiore, mentre il numero di stati attraversati è circa 33 volte maggiore.\\
 
-Per quanto riguarda il solver \textit{Recursive Backtracking} senza il $CCC$, osserviamo che non differisce di molto dal $Backtracking$ con la stessa miglioria (infatti i tempi sono simili). Mentre, invece, essi necessitano molto più tempo per arrivare alla soluzione, se utilizzati con il $CCC$, per il motivo già spiegato nel Livello 0.\\
+Per quanto riguarda il solver \textit{Recursive Backtracking} senza il $CCC$, osserviamo che non differisce di molto dal $Backtracking$ senza la stessa miglioria (infatti i tempi sono simili). Mentre essi necessitano molto più tempo per arrivare alla soluzione, se utilizzati con il $CCC$, per il motivo già spiegato nel Livello 0.\\
 
-Le osservazioni per $MinConflicts$ risultano essere le stesse per il Livello 1, ma con parametri differenti: il solver senza il $RR$ è sorprendentemente fallito solo nel $7,5\%$ dei test, mentre il solver con il $RR$ attraversa un numero di stati che oscilla da un minimo di 8 ad un massimo di 16268, con una maggior concentrazione intorno ai 150 stati attraversati.
-
+Le osservazioni per $MinConflicts$ risultano essere le stesse per il Livello 1, ma con parametri differenti: il solver senza il $RR$ è fallito solo nel $5\%$ dei test, mentre il solver con il $RR$ attraversa un numero di stati che oscilla da un minimo di 2 ad un massimo di 1.124.\\
+Il motivo per il quale la percentuale di fallimento è così bassa, rispetto al livello precedente, è che questa configurazione iniziale presenta 8 possibili diverse soluzioni.
 \subsection{Livello 3}
 La configurazione iniziale del livello 3 è mostrata in figura \ref{lev3}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{smallv}, \ref{bigz}, \ref{c}, \ref{y}, \ref{t}, \ref{w}, \ref{v}.
 \begin{figure}[h]
@@ -113,21 +129,25 @@ La configurazione iniziale del livello 3 è mostrata in figura \ref{lev3}. Le fo
 \\
 \noindent
 
-\begin{table} 
+\begin{table}[h] 
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflicts}\\ \hline 
-		Sì& ()&1.0607 (198.0)&\textcolor{ForestGreen}{0.3522 (55.0)}&30.473 (65528503) \\ \hline 
-		No& \textcolor{red}{30 minuti}&1.0379 (1179.0)&0.5709 (572.0)&0.1359 (36.0)  \\ \hline 
+		Sì&27,913 (8750,4)&1,0607 (198)&\textcolor{ForestGreen}{0,3522 (55)}&32,192 (15.323) \\ \hline 
+		No& \textcolor{red}{30 minuti}&1,0379 (1179)&0,5709 (572)&2,56 (857)  \\ \hline 
 	\end{tabular} 
+	\caption{Tempi livello 3}
 \end{table}
 
 \subsubsection{Osservazioni}
-Il livello 3 è il primo che presenta un grado di difficoltà elevato. Infatti il solver $DFS$ senza il $CCC$ impiega in media circa 30 minuti per arrivare ad una soluzione, ed è proprio in questo livello che si può meglio apprezzare l'utile incidenza della potatura fatta dal $CCC$ nel tempo di esecuzione: il $DFS$ che fa utilizzo di tale miglioria risulta essere molto più veloce del corrispettivo solver che non ne fa utilizzo.\\
+
+\textit{Numero di soluzioni}: 1\\
+
+Il livello 3 è il primo che presenta un grado di difficoltà elevato. Infatti il solver $DFS$ senza il $CCC$ impiega in media 30 minuti per arrivare ad una soluzione, ed è proprio in questo livello che si può meglio apprezzare l'utilità del $CCC$: il $DFS$ che fa utilizzo di tale miglioria impiega infatti solo 27 secondi in media per ottenere una soluzione.\\
 Il solver dalle migliori prestazioni per questo problema è il \textit{Recursive Backtracking} con il $CCC$.\\
 
 Nel solver $MinConflicts$ i dati evidenziano invece che il solver senza $RR$ è parecchio veloce, ma porta ad una soluzione solo nel $2,5\%$ dei casi.
-Con il $RR$, osserviamo sono attraversati in media 65.528.503 stati (che corrispondono a 655285 riavii). Tuttavia questo numero oscilla da un minimo di 170 ad un massimo di $5,337913878*10^{16}$.
+Con il $RR$, osserviamo che sono attraversati in media 15.323 stati (che corrispondono a 15 riavii). Tuttavia questo numero oscilla da un minimo di 926 ad un massimo di 72.354 (72 riavvii).
 Quest'ultimo dato ci fa capire che, per questo livello, affidarsi a questo solver è un azzardo spesso fallimentare: è molto difficile che porti ad una soluzione, oppure potrebbe metterci un tempo troppo elevato. 
 \subsection{Livello 4}
 La configurazione iniziale del livello 4 è mostrata in figura \ref{lev4}. Tutte le forme devono essere inserite nella griglia.
@@ -140,21 +160,38 @@ La configurazione iniziale del livello 4 è mostrata in figura \ref{lev4}. Tutte
 \\
 \noindent
 
- \begin{table} 
+ \begin{table}[h] 
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflicts}\\ \hline 
-		Sì& ()&\textcolor{ForestGreen}{1.0781 (184.0)}&13.126 (2640.0)&17.266 (21026751) \\ \hline 
-		No& ()&3.8761 (4002.0)&23.131 (23971.0)&2.0668 (796.4285)  \\ \hline 
+		Sì& ()&\textcolor{ForestGreen}{1,0781 (184)}&13,126 (2640)&18,794 (3.416,8) \\ \hline 
+		No& ()&3,8761 (4002)&23,131 (23971)&2,94 (458,78)  \\ \hline 
 	\end{tabular} 
+	\caption{Tempi livello 4}
 \end{table}
 
 \subsubsection{Osservazioni}
+
+\textit{Numero di soluzioni}: 2248\\
+
 In quest'ultimo livello, il solver miglior è il $Backtracking$ con il $CCC$, mentre qualsiasi tipo di $DFS$ è ritenuto inaccettabile nel tempo di esecuzione.\\
 
-Le osservazioni per $MinConflicts$ risultano essere le stesse per il Livello 3, ma con parametri differenti: il solver senza il $RR$ è fallito nell' $82,5\%$ dei test, mentre il solver con il $RR$ attraversa un numero di stati che oscilla da un minimo di 81581 ad un massimo di 791.975.126 .\\
+Le osservazioni per $MinConflicts$ risultano essere le stesse per il Livello 3, ma con parametri differenti: il solver senza il $RR$ ha avuto successo nel $22,5\%$ dei test, mentre il solver con il $RR$ attraversa un numero di stati che oscilla da un minimo di 62 ad un massimo di 12.220 (12 riavvii), con una concentrazione tra i 3000 e i 6100 stati attraversati.\\
+
 Quest'ultimo dato ci fa capire che, per questo livello, affidarsi a questo solver è un azzardo spesso fallimentare: è molto difficile che porti ad una soluzione, oppure potrebbe metterci un tempo troppo elevato. 
 
+\section{Prestazioni essere umano}
+\label{human}
+I dati raccolti, sottoponendo i primi 4 livelli (da 0 a 3) a 8 persone, sono raccolti nella seguente tabella (dati in secondi).
 
 
-
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lllll}
+		\hline
+		\multicolumn{1}{|c|}{Livelli}     & \multicolumn{1}{c|}{0}     & \multicolumn{1}{c|}{1}    & \multicolumn{1}{c|}{2}      & \multicolumn{1}{c|}{3}           \\ \hline
+		\multicolumn{1}{|c|}{Tempo medio} & \multicolumn{1}{c|}{33,87} & \multicolumn{1}{c|}{35,8} & \multicolumn{1}{c|}{163,36} & \multicolumn{1}{c|}{39,7 minuti} \\ \hline                               
+	\end{tabular}
+	\caption{Tempi essere umano}
+\end{table}
+Questi risultati ci fanno capire la difficoltà presente in questo gioco, in particolar modo con l'aumentare del numero di forme da inserire. Questo è quindi un'ulteriore esempio di come l'intelligenza artificiale è in grado di risolvere problemi che per l'uomo sarebbero intrattabili in tempi ragionevoli. 
