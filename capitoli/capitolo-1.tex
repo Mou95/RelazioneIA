@@ -124,20 +124,18 @@ La griglia è formata da 11 righe con 4 o 5 celle, dove ogni cella è collegata 
 
 \newpage
 \section{Scopo del progetto}
-Lo scopo del nostro progetto è stato quello di ricreare questo gioco ed implementare alcuni dei metodi risolutivi visti durante il corso di Intelligenza Artificiale per risolverlo. \\
-In un secondo momento abbiamo confrontato le performance dei vari algoritmi in modo da valutare la loro efficienza rispetto a questo problema.
+Lo scopo del nostro progetto è stato quello di ricreare questo gioco ed implementare alcuni dei metodi risolutivi visti durante il corso di Intelligenza Artificiale, con alcune nostre migliorie specifiche per questo tipo di gioco, per risolverlo. \\
+In un secondo momento abbiamo confrontato le performance dei vari algoritmi per i vari livelli di difficoltà, in modo da valutare la loro efficienza.
 
 \section{PEAS}
 
 \subsection{Performance measure}
 \label{performance}
-La misura di performance è il tempo impiegato da un algoritmo per risolvere il problema a partire da una delle configurazioni iniziali. Oltre al tempo, abbiamo anche considerato il numero di azioni necessarie per raggiungere una soluzione, in maniera tale da poter fare osservazioni più precise su alcuni tipi di solver.\\
-Tuttavia, la misura di performance più importante rimane la prima.
+Nel nostro caso la misura di performance è il tempo impiegato da un algoritmo per risolvere il problema a partire da una delle configurazioni iniziali. Oltre al tempo, abbiamo anche considerato il numero di azioni necessarie per raggiungere una soluzione, in maniera tale da poter fare osservazioni più precise su alcuni tipi di solver. Tuttavia, la misura di performance più importante rimane la prima.
 
 \subsection{Environment}
 Il gioco analizzato presenta un ambiente totalmente osservabile, deterministico, sequenziale, statico, discreto e single-agent.  L'ambiente è completamente determinato dallo stato corrente e dall'agente che può effettuare una sola mossa alla volta.
-L'azione dell'agente determina le azioni future dato che il possibile cammino
-si riduce ad ogni passo.
+L'azione dell'agente determina le azioni future dato che il possibile cammino si riduce ad ogni passo.
 
 \subsection{Actuators}
 Il programma rappresenta l'esecuzione di un'azione attraverso la colorazione delle celle assegnate ad una determinata forma (passo di computazione).
@@ -167,7 +165,7 @@ La libreria \textit{python-constraint} è stata inoltre modificata e inclusa nel
 Per poter utilizzare il programma è necessario:
 \begin{itemize}
 	\item aver installato nel computer Python 3;
-	\item spostarsi con il terminale alla cartella radice (\texttt{IQPuzzlerSoler/}) contenente il programma;
+	\item spostarsi con il terminale nella cartella radice (\texttt{IQPuzzlerSolver/}) contenente il programma;
 	\item eseguire uno di questi due comandi:
 	\begin{itemize}
 		\item \begin{verbatim}
@@ -175,7 +173,7 @@ Per poter utilizzare il programma è necessario:
 		\end{verbatim}inizia l'esecuzione del programma, guidando l'utente nella scelta della difficoltà del problema e in che modo risolverlo. Le possibili difficoltà sono 5 (da 0 a 4) e di complessità crescente. I metodi di risoluzione sono quattro, ognuno dei quali permette di scegliere se utilizzare tale metodo con le migliorie ideate e implementate da noi (descritte in \ref{migliorie}) o meno; 
 		\item \begin{verbatim}
 		sh Test/scriptTest.sh
-		\end{verbatim}esegue automaticamente una serie di esempi di problemi con vari metodi di risoluzione, tracciando i risultati ottenuti nel file \texttt{Test/testResult.txt}. 
+		\end{verbatim}esegue automaticamente una serie di esempi di problemi con vari metodi di risoluzione, tracciando i risultati ottenuti nel file \texttt{Test/testResult.txt} e creando automaticamente le tabelle \LaTeX{} relative ai vari tempi di esecuzione degli algoritmi per ogni livello. 
 	\end{itemize}
 \end{itemize}
 \begin{figure}[h]
