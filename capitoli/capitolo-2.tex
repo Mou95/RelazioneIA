@@ -47,18 +47,18 @@ Nella nostra implementazione il CSP è così definito:
 	\item \textbf{vincoli}: 
 		\begin{itemize}
 			\item nessuna variabile $X\textsubscript{i}$ deve sovrapporsi all'interno della griglia, anche solo parzialmente, con un'altra variabile $X\textsubscript{j}$;
-			\item il posizionamento di una variabile nella griglia non deve creare una componente connessa\vref{nota} con un numero di celle inferiore alla dimensione della forma più piccola, 3 nel nostro caso (vedi Figura \ref{fig:badCC}).
+			\item il posizionamento di una variabile nella griglia non deve creare una componente connessa\footnote{\label{nota} Sia $G = (V;E)$ un grafo non orientato. Una
+				componente connessa $C$ di $G$ è un sottoinsieme di vertici di $V$ che rispetta le seguenti proprietà:
+				\begin{enumerate}
+					\item per ogni coppia di vertici $u;v \in C$ esiste un cammino da $u$ a $v$ (connettività);
+					\item nessun vertice $u \in VC$ esterno alla componente è connesso con $C$ (massimalità).
+				\end{enumerate}
+			}  con un numero di celle inferiore alla dimensione della forma più piccola, 3 nel nostro caso (vedi Figura \ref{fig:badCC}).
 		\end{itemize}
 \end{itemize}
 
-\footnote{Sia $G = (V;E)$ un grafo non orientato. Una
-componente connessa $C$ di $G$ è un sottoinsieme di vertici di $V$ che rispetta le seguenti proprietà:
-\begin{enumerate}
-	\item per ogni coppia di vertici $u;v \in C$ esiste un cammino da $u$ a $v$ (connettività);
-	\item nessun vertice $u \in VC$ esterno alla componente è connesso con $C$ (massimalità).
-\end{enumerate}
-}\label{nota}
 \clearpage
+
 
 \begin{figure}[h]
 	\centering
