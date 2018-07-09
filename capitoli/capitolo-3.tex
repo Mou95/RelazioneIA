@@ -17,6 +17,7 @@ Per ogni livello di difficoltà e per ogni possibie algoritmo, con e senza le ri
 Nel caso del solver $MinConflict$ senza \textit{Random Restart}, i dati sono relativi alle sole esecuzioni che hanno portato ad una soluzione valida (le percentuali di fallimento/successo vengono riportate tra le osservazioni per ogni livello).
 
 \subsection{Livello 0}
+
 La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{c}, \ref{y}.
 \begin{figure}[h]
 	\centering
@@ -38,7 +39,7 @@ La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le fo
 \end{table}
 
 \subsubsection{Osservazioni}
-
+\label{oss0}
 \textit{Numero di soluzioni}: 2\\
 
 In questo livello, le forme mancanti sono solamente tre, producendo così uno spazio degli stati molto limitato. Secondo i test effettutati e sulla base delle misure di perfomance adottate ed esposte in \ref{performance}, l'algoritmo migliore risulta essere $DFS$ con la miglioria \textit{Connected Component Check} (d'ora in avanti $CCC$), mentre il peggiore risulta essere quello di $Backtracking$ con la stessa miglioria.\\

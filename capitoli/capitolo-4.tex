@@ -5,5 +5,22 @@
 %**************************************************************
 \chapter{Conclusioni}
 \label{cap:conclusioni}
+
+\section{Riflessioni finali}
+I risultati ottenuti ed esposti in \ref{cap:performance} sono spunto di alcune riflessioni.\\
+
+Ragionando sulla miglioria $CCC$, ci possiamo rendere conto di due cose: la prima è che per istanze semplici del problema (Livelli 0,1 e 2) essa non migliora il tempo di esecuzione degli algoritmi di $Backtracking$, ma addirittura arriva anche a raddoppiarlo. Su istanze molto complesse (Livello 4), il $CCC$ risulta essere invece determinante nella riduzione del tempo di esecuzione di tali algoritmi: il $Backtracking$ è il triplo più veloce, mentre il \textit{Recursive Backtracking} quasi il doppio. \\
+La seconda, invece, è che per l'algoritmo $DFS$ è sempre meglio utilizzare il $CCC$, in quanto permette di ignorare totalmente una buona parte dei cammini che non portano ad uno stato obiettivo, come esposto in \ref{oss0}.\\
+
+Ragionando sulla migliora $RR$, possiamo affermare che rende minconfl completo ma che fa un po' schifino su istanze con poche soluzioni.\\
+
+Riassumendo, affermiamo che:
+\begin{enumerate}
+	\item $CCC$ è sempre una buona miglioria per $DFS$, mentre per i $Backtracking$ lo è solo per istanze complesse.
+	\item $RR$ rende completo il $MinConflict$ e risulta essere di utile impiego solo nel caso gli stati obiettivo siano MOLTI. Quest'ultima conoscenza non può però essere pretesa nella definizione del problema ... 
+\end{enumerate}
+\section{Possibili miglioramenti}
+
+RAGIONAMENTI SULLA FORMA DELLA MINCC
 %**************************************************************
 
