@@ -57,8 +57,6 @@ Nella nostra implementazione il CSP è così definito:
 		\end{itemize}
 \end{itemize}
 
-\clearpage
-
 
 \begin{figure}[h]
 	\centering
@@ -68,6 +66,8 @@ Nella nostra implementazione il CSP è così definito:
 	\caption{La figura a sinistra rappresente un valore consistente per la forma a "V", mentre la figura a destra uno non valido per la figura a "T" in quanto si crea una componente connessa di una sola cella}
 	\label{fig:badCC}
 \end{figure}
+
+\newpage
 
 \subsection{Tipi di solver}
 La libreria \textit{python-constraint} che abbiamo utilizzato per risolvere il problema sotto forma di CSP, mette a disposizione tre diversi solver, che utilizzano algoritmi ed euristiche differenti per ottenere una soluzione. \\
@@ -91,7 +91,6 @@ Questi tipi di algoritmi non considerano il percorso per raggiungere una soluzio
 \end{figure}
 
 
-\newpage
 \section{Nostri miglioramenti}
 \label{migliorie}
 Una volta implementati gli algoritmi appena visti, abbiamo pensato a dei modi per poter migliorare la loro efficienza rispetto al nostro gioco. \\
@@ -116,7 +115,7 @@ Se essa ha una dimensione minore della più piccola forma ancora da inserire, vi
 	\caption{La stessa posizione della figura \ref{fig:CCC} per la variabile "V" non è consistente con l'assegnamento parziale, e l'algoritmo che fa uso di Connected Component Check è in grado di rilevarlo.}
 	\label{fig:badCCC}
 \end{figure}
-
+\newpage
 \subsection{Random Restart}
 \label{RR}
 Spesso il solver MinConflict nelle istanze complesse del problema non raggiunge un assegnamento completo e consistente, ossia una soluzione. Questo è dovuto dal fatto che può capitare di raggiungere stati dove ogni possibile successiva azione non diminuisce il numero di vincoli violati. Nel caso in cui l'algoritmo arrivi in uno di questi stati, chiamati minimi locali, non è più in grado di raggiungere una soluzione del problema, in quanto inizia una serie di assegnamenti ciclici che lo porteranno sempre allo stesso minimo locale terminando, dopo un numero fissato di iterazioni (1000), in un assegnamento non consistente.\\

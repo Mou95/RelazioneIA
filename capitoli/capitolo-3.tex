@@ -16,6 +16,8 @@ Per ogni tabella, si paragonano tra loro i risultati ottenuti da ogni solver con
 Per ogni livello di difficoltà e per ogni possibie algoritmo, con e senza le rispettive migliorie, sono state fatte 40 esecuzioni. Per ogni esecuzione sono stati tracciati il tempo e il numero di stati attraversati, per poi calcolare le medie da inserire nelle varie tabelle.\\
 Nel caso del solver $MinConflict$ senza \textit{Random Restart}, i dati sono relativi alle sole esecuzioni che hanno portato ad una soluzione valida (le percentuali di fallimento/successo vengono riportate tra le osservazioni per ogni livello).
 
+\newpage
+
 \subsection{Livello 0}
 
 La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{c}, \ref{y}.
@@ -28,7 +30,7 @@ La configurazione iniziale del livello 0 è mostrata in figura \ref{lev0}. Le fo
 \\
 \noindent
 
-\begin{table} 
+\begin{table}[h]
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflict}\\ \hline 
@@ -52,6 +54,7 @@ Per quanto riguarda il $Backtracking$ con la stessa miglioria, esso risulta esse
 Possiamo quindi affermare che a parità di stati, o se la loro differenza è poco rilevante, il solver che utilizza il $CCC$ impiegherà più tempo rispetto al suo corrispondente solver senza il $CCC$.\\
 
 Infine, osserviamo che la miglioria \textit{Random Restart} per il solver $MinConflict$ risulta poco utile, in quanto per la semplicità di questo livello è molto difficile che il solver si "incastri" in qualche minimo locale: nessuno dei test eseguiti per questo solver, con e senza miglioria, ha mai portato ad uno stallo in un minimo locale e quindi i due solver operano allo stesso modo (non ci sono riavvii).
+\newpage
 \subsection{Livello 1}
 La configurazione iniziale del livello 1 è mostrata in figura \ref{lev1}. Le forme mancanti da inserire sono mostrate nelle figure \ref{z}, \ref{c}, \ref{y}, \ref{w}.
 \begin{figure}[h]
@@ -132,8 +135,8 @@ La configurazione iniziale del livello 3 è mostrata in figura \ref{lev3}. Le fo
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflict}\\ \hline 
-		Sì&27,913 (8750,4)&1,0607 (198)&\textcolor{ForestGreen}{0,3522 (55)}&32,192 (15.323) \\ \hline 
-		No& \textcolor{red}{30 minuti}&1,0379 (1179)&0,5709 (572)&2,56 (857)  \\ \hline 
+		Sì&27,913 (8.750,4)&1,0607 (198)&\textcolor{ForestGreen}{0,3522 (55)}&32,192 (15.323) \\ \hline 
+		No& \textcolor{red}{30 minuti}&1,0379 (1.179)&0,5709 (572)&2,56 (857)  \\ \hline 
 	\end{tabular} 
 	\caption{Tempi livello 3}
 \end{table}
@@ -163,8 +166,8 @@ La configurazione iniziale del livello 4 è mostrata in figura \ref{lev4}. Tutte
 	\begin{tabular}{|l||*{4}{c|}}\hline 
 		\backslashbox{Miglioria}{Solver} 
 		&\makebox{DFS}&\makebox{Backtracking}&\makebox{Recursive Backtracking}	&\makebox{MinConflict}\\ \hline 
-		Sì&\textcolor{red}{228,63 (77.582)}&\textcolor{ForestGreen}{1,0781 (184)}&13,126 (2640)&18,794 (3.416,8) \\ \hline 
-		No& ()&3,8761 (4002)&23,131 (23971)&2,94 (458,78)  \\ \hline 
+		Sì&\textcolor{red}{228,63 (77.582)}&\textcolor{ForestGreen}{1,0781 (184)}&13,126 (2.640)&18,794 (3.416,8) \\ \hline 
+		No& ()&3,8761 (4.002)&23,131 (23.971)&2,94 (458,78)  \\ \hline 
 	\end{tabular} 
 	\caption{Tempi livello 4}
 \end{table}
